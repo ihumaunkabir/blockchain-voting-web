@@ -52,7 +52,7 @@ if($_SESSION['nid'] != $nid)
 
   <div class="content">
 
-    <h3><?php echo date('Y-m-d'); ?> <br> Nomination Page</h3>
+    <h3><?php echo date('Y-m-d'); ?> <br> Voting Page</h3>
     <br>
 
     <!-- <center><p><?php //if(isset($att_msg)) echo $att_msg; if(isset($error_msg)) echo $error_msg; ?></p></center> -->

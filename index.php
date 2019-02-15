@@ -93,14 +93,14 @@
 			<div class="form-group">
 			    <label for="input1" class="col-sm-3 control-label">NID</label>
 			    <div class="col-sm-7">
-			      <input type="text" name="nid"  class="form-control" id="input1" placeholder="your NID" />
+			      <input type="text" name="nid"  class="form-control" id="input1" placeholder="your NID" required="required" />
 			    </div>
 			</div>
 
 			<div class="form-group">
 			    <label for="input1" class="col-sm-3 control-label">Password</label>
 			    <div class="col-sm-7">
-			      <input type="password" name="password"  class="form-control" id="input1" placeholder="your password" />
+			      <input type="password" name="password"  class="form-control" id="input1" placeholder="your password" required="required" />
 			    </div>
 			</div>
 

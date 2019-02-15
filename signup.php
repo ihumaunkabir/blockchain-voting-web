@@ -75,21 +75,21 @@
       <div class="form-group">
           <label for="input1" class="col-sm-3 control-label">NID</label>
           <div class="col-sm-7">
-            <input type="text" name="nid"  class="form-control" id="input1" placeholder="national ID number" />
+            <input type="text" name="nid"  class="form-control" id="input1" placeholder="national ID number" required="required"/>
           </div>
       </div>
 
       <div class="form-group">
           <label for="input1" class="col-sm-3 control-label">Name</label>
           <div class="col-sm-7">
-            <input type="text" name="username"  class="form-control" id="input1" placeholder="your name" />
+            <input type="text" name="username"  class="form-control" id="input1" placeholder="your name" required="required"/>
           </div>
       </div>
 
       <div class="form-group">
           <label for="input1" class="col-sm-3 control-label">Password</label>
           <div class="col-sm-7">
-            <input type="password" name="password"  class="form-control" id="input1" placeholder="choose a strong password" />
+            <input type="password" name="password"  class="form-control" id="input1" placeholder="choose a strong password" required="required"/>
           </div>
       </div>
 
