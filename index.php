@@ -33,14 +33,15 @@
 	    $authToken = curl_exec($ch);
 
 			$jsondata = json_decode($authToken,true);
-			$passp = $jsondata['status'];
+			
 
 			//redirecting to login page or nomination page
 				if($jsondata['reply'] == true ){
 						header('location: voter/index.php');
 					}
 					else {
-						header('location: index.php');
+						$msg = $jsondata['message'];
+						//header('location: index.php');
 					}
 
 
@@ -82,9 +83,6 @@
 
 <h1>Login</h1>
 
-<?php if(isset($pass)) echo $pass;
-	if(isset($passp)) echo $passp;
- ?>
 
 <div class="content">
 	<div class="row">
@@ -93,7 +91,7 @@
 			<div class="form-group">
 			    <label for="input1" class="col-sm-3 control-label">NID</label>
 			    <div class="col-sm-7">
-			      <input type="text" name="nid"  class="form-control" id="input1" placeholder="your NID" required="required" />
+			      <input type="text" name="nid"  class="form-control" id="input1" placeholder="your NID" required="required" maxlength="6" minlength="4" />
 			    </div>
 			</div>
 
@@ -109,6 +107,12 @@
 			<input type="submit" class="btn btn-primary col-md-3 col-md-offset-7" value="Login" name="login" />
 		</form>
 	</div>
+	<br>
+
+	<p><?php
+		if(isset($msg)) echo $msg;
+
+	 ?></p>
 </div>
 
 

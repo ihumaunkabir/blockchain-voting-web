@@ -25,19 +25,10 @@ if($_SESSION['nid'] != $nid)
     curl_setopt($ch, CURLOPT_URL,"http://10.10.1.98:3000/voters/cast");
     curl_setopt($ch, CURLOPT_POST, 1);
 
-    if(isset($_POST['whichp'])){
+
           curl_setopt($ch, CURLOPT_POSTFIELDS,
                 'from='.$nid.'&to='.$_POST['whichp'].'&pos=PM&type=0');
-    }
-    if(isset($_POST['whichvp'])){
-          curl_setopt($ch, CURLOPT_POSTFIELDS,
-                'from='.$nid.'&to='.$_POST['whichvp'].'&pos=VP&type=0');
-    }
-    if(isset($_POST['whichgs'])){
-          curl_setopt($ch, CURLOPT_POSTFIELDS,
-                'from='.$nid.'&to='.$_POST['whichgs'].'&pos=GS&type=0');
-    }
-    
+
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
 
 
@@ -48,12 +39,52 @@ if($_SESSION['nid'] != $nid)
 
     curl_close ($ch);
 
+  $dh = curl_init();
+
+    curl_setopt($dh, CURLOPT_URL,"http://10.10.1.98:3000/voters/cast");
+    curl_setopt($dh, CURLOPT_POST, 1);
+
+curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=VP&type=0');
+
+    curl_setopt($dh, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+
+    // receive server response ...
+    curl_setopt($dh, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec ($dh);
+
+    curl_close ($dh);
+
+
+
+  $eh = curl_init();
+
+    curl_setopt($eh, CURLOPT_URL,"http://10.10.1.98:3000/voters/cast");
+    curl_setopt($eh, CURLOPT_POST, 1);
+
+          curl_setopt($eh, CURLOPT_POSTFIELDS,
+                'from='.$nid.'&to='.$_POST['whichgs'].'&pos=GS&type=0');
+
+    curl_setopt($eh, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+
+    // receive server response ...
+    curl_setopt($eh, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec ($eh);
+
+    curl_close ($eh);
+
+
+
     $jsondata = json_decode($server_output,true);
 
     //message after registering
 
         if($jsondata['reply'] == true ){
             $msg = "Nominated Successfully";
+            header('location: voting.php');
           }
           else {
             $ermsg = "Nomination failed";
@@ -104,12 +135,12 @@ if($_SESSION['nid'] != $nid)
 
   <div class="content">
 
-    <h3><?php echo date('Y-m-d'); ?> <br> Nomination Page</h3>
+    <h3><?php echo date('Y-m-d'); ?> <br> Nomination Page &nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a></h3>
     <br>
 
     <!-- <center><p><?php //if(isset($att_msg)) echo $att_msg; if(isset($error_msg)) echo $error_msg; ?></p></center> -->
     
-    <form action="" method="post" class="form-horizontal col-md-6 col-md-offset-3">
+    <form action="" method="post" class="form-horizontal col-md-6 col-md-offset-3" >
 
      <div class="form-group">
 

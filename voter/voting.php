@@ -12,7 +12,7 @@ if($_SESSION['nid'] != $nid)
   header('location: /hk_project/index.php');
 }
   //all member list
-    if(isset($_POST['nominate'])){
+    if(isset($_POST['vote'])){
 
      // if(isset($_POST['whichp'])) $position="PM";
       //if(isset($_POST['whichvp'])) $position = "VP";
@@ -35,6 +35,43 @@ if($_SESSION['nid'] != $nid)
     $server_output = curl_exec ($ch);
 
     curl_close ($ch);
+
+
+      $eh = curl_init();
+
+    curl_setopt($eh, CURLOPT_URL,"http://10.10.1.98:3000/voters/cast");
+    curl_setopt($eh, CURLOPT_POST, 1);
+    curl_setopt($eh, CURLOPT_POSTFIELDS,
+                'from='.$nid.'&to='.$_POST['whichgs'].'&pos=GS&type=1');
+    curl_setopt($eh, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+
+    // receive server response ...
+    curl_setopt($eh, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec ($eh);
+
+    curl_close ($eh);
+
+
+
+      $dh = curl_init();
+
+    curl_setopt($dh, CURLOPT_URL,"http://10.10.1.98:3000/voters/cast");
+    curl_setopt($dh, CURLOPT_POST, 1);
+    curl_setopt($dh, CURLOPT_POSTFIELDS,
+                'from='.$nid.'&to='.$_POST['whichvp'].'&pos=VP&type=1');
+    curl_setopt($dh, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+
+    // receive server response ...
+    curl_setopt($dh, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec ($dh);
+
+    curl_close ($dh);
+
+
 
     $jsondata = json_decode($server_output,true);
 
@@ -91,7 +128,7 @@ if($_SESSION['nid'] != $nid)
 
   <div class="content">
 
-    <h3><?php echo date('Y-m-d'); ?> <br> Voting Page</h3>
+    <h3><?php echo date('Y-m-d'); ?> <br> Voting Page &nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a></h3>
     <br>
 
     <!-- <center><p><?php //if(isset($att_msg)) echo $att_msg; if(isset($error_msg)) echo $error_msg; ?></p></center> -->
@@ -186,7 +223,7 @@ if($_SESSION['nid'] != $nid)
     <?php 
 
 
-    foreach ($jsondata['data']['AM'] as $dataAM) {
+    foreach ($jsondata['data']['VP'] as $dataAM) {
 
 
 //matching with data and query
@@ -235,7 +272,7 @@ if($_SESSION['nid'] != $nid)
     <!-- GS Starts-->
        <tr>
            <td>  <label>Vice President</label>
-            <select name="whichvp" id="input1">
+            <select name="whichgs" id="input1">
 
     <?php 
 
@@ -289,6 +326,15 @@ if($_SESSION['nid'] != $nid)
     </form>
 </div>
 
+<a href="stat.php">res</a>
+
+  <p><?php 
+  if(isset($msg)){
+  echo $msg; }
+
+  if(isset($ermsg)  ) echo $ermsg;
+   ?></p>
+  
 </div>
 
 

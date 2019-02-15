@@ -77,7 +77,7 @@ if($_SESSION['nid'] != $nid)
 
   <div class="content">
 
-    <h3><?php echo date('Y-m-d'); ?> <br> Elections (Schemes)</h3>
+    <h3><?php echo date('Y-m-d'); ?> <br> Elections (Schemes) &nbsp;&nbsp;&nbsp;<a href="logout.php">Logout</a></h3>
     <br>
 
 
