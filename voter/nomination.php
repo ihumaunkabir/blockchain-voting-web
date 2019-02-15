@@ -12,32 +12,60 @@ if($_SESSION['nid'] != $nid)
   header('location: /hk_project/index.php');
 }
   //all member list
-    $ch = curl_init();
-      $headers = array(
-    'Content-Type: application/x-www-form-urlencoded'
-      );
-
-      curl_setopt($ch, CURLOPT_URL,'http://10.10.1.98:3000/auth/voters/all');
-
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-      curl_setopt($ch, CURLOPT_HEADER, 0);
-    
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-      // Timeout in seconds
-      curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-
-      $authToken = curl_exec($ch);
-
-      $jsondata = json_decode($authToken,true);
-      
-
-      //nominations are stored via API
     if(isset($_POST['nominate'])){
 
+     // if(isset($_POST['whichp'])) $position="PM";
+      //if(isset($_POST['whichvp'])) $position = "VP";
+      //if(isset($_POST['whichgs'])) $position = "GS";
+
+      //post user information to API end /auth/register
+      ///voters/cast?from=voter&to=candidate&pos=PM,VP,GS&type=0
+  $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL,"http://10.10.1.98:3000/voters/cast");
+    curl_setopt($ch, CURLOPT_POST, 1);
+
+    if(isset($_POST['whichp'])){
+          curl_setopt($ch, CURLOPT_POSTFIELDS,
+                'from='.$nid.'&to='.$_POST['whichp'].'&pos=PM&type=0');
     }
+    if(isset($_POST['whichvp'])){
+          curl_setopt($ch, CURLOPT_POSTFIELDS,
+                'from='.$nid.'&to='.$_POST['whichvp'].'&pos=VP&type=0');
+    }
+    if(isset($_POST['whichgs'])){
+          curl_setopt($ch, CURLOPT_POSTFIELDS,
+                'from='.$nid.'&to='.$_POST['whichgs'].'&pos=GS&type=0');
+    }
+    
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
 
 
+    // receive server response ...
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec ($ch);
+
+    curl_close ($ch);
+
+    $jsondata = json_decode($server_output,true);
+
+    //message after registering
+
+        if($jsondata['reply'] == true ){
+            $msg = "Nominated Successfully";
+          }
+          else {
+            $ermsg = "Nomination failed";
+          }
+
+    
+
+  
+      }
+
+
+ 
  ?>
 
 
@@ -193,6 +221,14 @@ if($_SESSION['nid'] != $nid)
     </form>
 
 </div>
+
+  <p><?php 
+  if(isset($msg)){
+  echo $msg; }
+
+  if(isset($ermsg)  ) echo $ermsg;
+   ?></p>
+
 
 </div>
 

@@ -2,19 +2,58 @@
 
 ob_start();
 
-/*
+
 session_start();
 $nid = $_SESSION['nid'];
+//passing session data
 
 if($_SESSION['nid'] != $nid)
 {
   header('location: /hk_project/index.php');
 }
+  //all member list
+    if(isset($_POST['nominate'])){
 
-    if(isset($_POST['att'])){
+     // if(isset($_POST['whichp'])) $position="PM";
+      //if(isset($_POST['whichvp'])) $position = "VP";
+      //if(isset($_POST['whichgs'])) $position = "GS";
 
-    }
-*/
+      //post user information to API end /auth/register
+      ///voters/cast?from=voter&to=candidate&pos=PM,VP,GS&type=0
+  $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL,"http://10.10.1.98:3000/voters/cast");
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS,
+                'from='.$nid.'&to='.$_POST['whichp'].'&pos=PM&type=1');
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+
+
+    // receive server response ...
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $server_output = curl_exec ($ch);
+
+    curl_close ($ch);
+
+    $jsondata = json_decode($server_output,true);
+
+    //message after registering
+
+        if($jsondata['reply'] == true ){
+            $msg = "Voted Successfully";
+          }
+          else {
+            $ermsg = "Vote cast failed";
+          }
+
+    
+
+  
+      }
+
+
+ 
  ?>
 
 
