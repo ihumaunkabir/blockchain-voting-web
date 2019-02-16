@@ -45,7 +45,7 @@ if($_SESSION['nid'] != $nid)
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Voting 1.0</title>
+<title>vote.io</title>
 <meta charset="UTF-8">
 
   <link rel="stylesheet" type="text/css" href="/am/css/main.css">
@@ -67,7 +67,7 @@ if($_SESSION['nid'] != $nid)
 
 <header>
 
-  <h1>Voting 1.0</h1>
+  <h1>vote.io</h1>
 
 </header>
 

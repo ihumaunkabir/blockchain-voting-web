@@ -24,7 +24,7 @@
 
 <header>
 
-  <h1>Voting 1.0</h1>
+  <h1>vote.io</h1>
 
 </header>
 

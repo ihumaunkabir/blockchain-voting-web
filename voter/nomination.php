@@ -169,7 +169,7 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
 
 <header>
 
-  <h1>Voting 1.0</h1>
+  <h1>vote.io</h1>
 
 </header>
 
@@ -314,7 +314,7 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
 </div>
   
   <div class="row">
-
+<br> <br> <br> <br> <br>
   <h4><?php 
   if(isset($msg)){
   echo $msg; }
@@ -350,7 +350,7 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
     foreach ($jsonSelect['data'] as $value) {
 
         ?>
-          
+            
             <li><?php echo $value['Record']['idto']; ?></li>
           
 

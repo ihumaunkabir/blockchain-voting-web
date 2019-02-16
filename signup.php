@@ -42,7 +42,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Voting 1.0</title>
+<title>vote.io</title>
 <meta charset="UTF-8">
   
   <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -61,7 +61,7 @@
 
 <header>
 
-  <h1>Voting 1.0</h1>
+  <h1>vote.io</h1>
 
 </header>
 <center>
@@ -97,7 +97,7 @@
       <input type="submit" class="btn btn-primary col-md-2 col-md-offset-8" value="Signup" name="signup" />
     </form>
   </div>
-
+<br> <br> <br> <br> <br>
   <h4><?php 
   if(isset($msg)){
   echo $msg; }

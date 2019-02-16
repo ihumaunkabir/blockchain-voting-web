@@ -57,7 +57,7 @@
 <html lang="en">
 <head>
 
-	<title>Voting 1.0</title>
+	<title>vote.io</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -77,7 +77,7 @@
 
 <header>
 
-  <h1>Voting 1.0</h1>
+  <h1>vote.io</h1>
 
 </header>
 
