@@ -160,6 +160,7 @@ if($_SESSION['nid'] != $nid)
      curl_close ($ch);
 
 
+
    // reading all voters in the list under the designation
         ?>
 
@@ -271,7 +272,7 @@ if($_SESSION['nid'] != $nid)
 
     <!-- GS Starts-->
        <tr>
-           <td>  <label>Vice President</label>
+           <td>  <label>General Secretary</label>
             <select name="whichgs" id="input1">
 
     <?php 

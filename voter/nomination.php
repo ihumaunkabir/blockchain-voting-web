@@ -11,12 +11,19 @@ if($_SESSION['nid'] != $nid)
 {
   header('location: /hk_project/index.php');
 }
+
+    $presi = 0;
+    $vpresi = 0;
+    $gsec = 0;
+
   //all member list
     if(isset($_POST['nominate'])){
 
-     // if(isset($_POST['whichp'])) $position="PM";
-      //if(isset($_POST['whichvp'])) $position = "VP";
-      //if(isset($_POST['whichgs'])) $position = "GS";
+
+
+      //if(isset($_POST['whichp'])) $presi=1;
+      //if(isset($_POST['whichvp'])) $vpresi = 1;
+      //if(isset($_POST['whichgs'])) $gsec = 1;
 
       //post user information to API end /auth/register
       ///voters/cast?from=voter&to=candidate&pos=PM,VP,GS&type=0
@@ -84,7 +91,7 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
 
         if($jsondata['reply'] == true ){
             $msg = "Nominated Successfully";
-            header('location: voting.php');
+           // header('location: voting.php');
           }
           else {
             $ermsg = "Nomination failed";
@@ -94,6 +101,43 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
 
   
       }
+
+
+      //time API call
+
+      $th = curl_init();
+
+      curl_setopt($th, CURLOPT_URL, 'http://103.84.159.230:6000/channels/mychannel/chaincodes/mycc?peer=peer0.org1.example.com&fcn=whichTime&args=%5B%22%22%5D');
+      curl_setopt($th, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($th, CURLOPT_CUSTOMREQUEST, 'GET');
+
+
+      $headers = array();
+      $headers[] = 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTAzMjMxMDcsInVzZXJuYW1lIjoic2h1aGFuIiwib3JnTmFtZSI6Ik9yZzEiLCJpYXQiOjE1NTAyODcxMDd9.-es8VySmyKgjleM5t-aOY1i62IDm3_2eNccBtUZDY4M';
+      $headers[] = 'Content-Type: application/json';
+      curl_setopt($th, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($th);
+      if (curl_errno($th)) {
+          echo 'Error:' . curl_error($th);
+      }
+      curl_close ($th);
+
+      //$jsonTime = json_decode($result, true);
+
+     //echo $result;
+
+
+//comment out API block
+  
+      if($result == "=>vote"){
+        header('location: voting.php');
+      }
+
+      else if($result == "=>before"){
+        header('location: index.php');
+      }
+
 
 
  
@@ -169,13 +213,20 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
    // reading all voters in the list under the designation
     $i = 0;
     $radio =0;
+
+    
+
     ?>
     <!-- President -->
        <tr>
            <td>  <label>President</label>
             <select name="whichp" id="input1">
+              <option value="NA">N/A</option>
+
 
     <?php 
+    //if($presi ==0){
+
     foreach ($jsondata['data'] as $data) {
 
        $i++;
@@ -186,6 +237,8 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
      <?php
         $radio++; //on for new one
       } 
+
+    //}
 
       ?>
          </select>
@@ -198,8 +251,10 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
        <tr>
            <td>  <label> Vice President</label>
             <select name="whichvp" id="input1">
-
+            <option value="NA">N/A</option>
     <?php 
+       // if($vpresi ==0){
+
     foreach ($jsondata['data'] as $data) {
 
        $i++;
@@ -207,13 +262,14 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
               
     <option  value=<?php echo $data['Record']['id']; ?> > <?php echo $data['Record']['name']; ?></option>
 
+    
      <?php
         $radio++; //on for new one
       } 
-
+//}
       ?>
-         </select>
-
+         
+</select>
     </td>
     </tr>
 <!-- Vice President ends -->
@@ -223,8 +279,10 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
        <tr>
            <td>  <label>General Secretary</label>
             <select name="whichgs" id="input1">
+              <option value="NA">N/A</option>
 
     <?php 
+   // if($vsec ==0){
     foreach ($jsondata['data'] as $data) {
 
        $i++;
@@ -232,10 +290,11 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
               
     <option  value=<?php echo $data['Record']['id']; ?> > <?php echo $data['Record']['name']; ?></option>
 
+    
      <?php
         $radio++; //on for new one
       } 
-
+//}
       ?>
          </select>
 

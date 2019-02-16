@@ -91,7 +91,7 @@ if($_SESSION['nid'] != $nid)
 
 
           $headers = array();
-          $headers[] = 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTAyNzU1NjMsInVzZXJuYW1lIjoic2h1aGFuIiwib3JnTmFtZSI6Ik9yZzEiLCJpYXQiOjE1NTAyMzk1NjN9.b_kD8_Y68tl47pswrKitmzRSKoymJ558u1bz0q3Uj18';
+          $headers[] = 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTAzMjMxMDcsInVzZXJuYW1lIjoic2h1aGFuIiwib3JnTmFtZSI6Ik9yZzEiLCJpYXQiOjE1NTAyODcxMDd9.-es8VySmyKgjleM5t-aOY1i62IDm3_2eNccBtUZDY4M';
           $headers[] = 'Content-Type: application/json';
           curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
