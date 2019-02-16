@@ -98,12 +98,12 @@
     </form>
   </div>
 
-  <p><?php 
+  <h4><?php 
   if(isset($msg)){
   echo $msg; }
 
   if(isset($ermsg)  ) echo $ermsg;
-   ?></p>
+   ?></h4>
   
     <br>
     <p><strong>Already have an account? <a href="index.php">Login</a> here.</strong></p>

@@ -329,12 +329,59 @@ if($_SESSION['nid'] != $nid)
 
 <a href="stat.php">res</a>
 
-  <p><?php 
+  <h4><?php 
   if(isset($msg)){
   echo $msg; }
 
   if(isset($ermsg)  ) echo $ermsg;
-   ?></p>
+   ?></h4>
+
+
+
+
+   <?php
+
+         //time API call
+
+      $th = curl_init();
+
+      curl_setopt($th, CURLOPT_URL, 'http://103.84.159.230:6000/channels/mychannel/chaincodes/mycc?peer=peer0.org1.example.com&fcn=whichTime&args=%5B%22%22%5D');
+      curl_setopt($th, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($th, CURLOPT_CUSTOMREQUEST, 'GET');
+
+
+      $headers = array();
+      $headers[] = 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTAzMjMxMDcsInVzZXJuYW1lIjoic2h1aGFuIiwib3JnTmFtZSI6Ik9yZzEiLCJpYXQiOjE1NTAyODcxMDd9.-es8VySmyKgjleM5t-aOY1i62IDm3_2eNccBtUZDY4M';
+      $headers[] = 'Content-Type: application/json';
+      curl_setopt($th, CURLOPT_HTTPHEADER, $headers);
+
+      $result = curl_exec($th);
+      if (curl_errno($th)) {
+          echo 'Error:' . curl_error($th);
+      }
+      curl_close ($th);
+
+      //$jsonTime = json_decode($result, true);
+
+     //echo $result;
+
+
+//comment out API block
+  
+      if($result == "=>finished"){
+        header('location: stat.php');
+      }
+
+      else if($result == "=>before"){
+        header('location: index.php');
+      }
+
+
+
+
+
+
+    ?>
   
 </div>
 

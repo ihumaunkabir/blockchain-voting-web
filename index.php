@@ -109,10 +109,10 @@
 	</div>
 	<br>
 
-	<p><?php
+	<h4><?php
 		if(isset($msg)) echo $msg;
 
-	 ?></p>
+	 ?></h4>
 </div>
 
 

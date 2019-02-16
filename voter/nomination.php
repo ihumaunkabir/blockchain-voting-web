@@ -231,10 +231,11 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
 
        $i++;
        ?>
-              
-    <option  value=<?php echo $data['Record']['id']; ?> > <?php echo $data['Record']['name']; ?></option>
+          
+    <option  value=<?php if($nid != $data['Record']['id'] ) echo $data['Record']['id']; ?> > <?php if($nid != $data['Record']['id'] ) echo $data['Record']['name']; ?></option>
 
      <?php
+     //just changed here with id if else
         $radio++; //on for new one
       } 
 
@@ -260,7 +261,7 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
        $i++;
        ?>
               
-    <option  value=<?php echo $data['Record']['id']; ?> > <?php echo $data['Record']['name']; ?></option>
+    <option  value=<?php  echo $data['Record']['id']; ?> > <?php echo $data['Record']['name']; ?></option>
 
     
      <?php
@@ -288,9 +289,9 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
        $i++;
        ?>
               
-    <option  value=<?php echo $data['Record']['id']; ?> > <?php echo $data['Record']['name']; ?></option>
+    <option  value=<?php  echo $data['Record']['id']; ?> > <?php echo $data['Record']['name']; ?></option>
 
-    
+
      <?php
         $radio++; //on for new one
       } 
@@ -311,13 +312,57 @@ curl_setopt($dh, CURLOPT_POSTFIELDS,'from='.$nid.'&to='.$_POST['whichvp'].'&pos=
     </form>
 
 </div>
+  
+  <div class="row">
 
-  <p><?php 
+  <h4><?php 
   if(isset($msg)){
   echo $msg; }
 
   if(isset($ermsg)  ) echo $ermsg;
-   ?></p>
+   ?></h4>
+
+
+   <?php
+ 
+
+   if(isset($_POST['nominate'])){
+
+      $ch = curl_init();
+      $headers = array(
+    'Content-Type: application/x-www-form-urlencoded'
+      );
+
+      curl_setopt($ch, CURLOPT_URL,'http://10.10.1.98:3000/voters/getnominations?nid='.$nid);
+
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+    
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+      // Timeout in seconds
+      curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+
+      $sel = curl_exec($ch);
+
+    $jsonSelect = json_decode($sel,true);
+
+    foreach ($jsonSelect['data'] as $value) {
+
+        ?>
+          
+            <li><?php echo $value['Record']['idto']; ?></li>
+          
+
+        <?php
+      # code...
+    }
+  }
+
+  //ends
+?>
+
+</div>
 
 
 </div>
